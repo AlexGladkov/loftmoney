@@ -13,14 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.btnMainNext).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent secondActivity = new Intent(getApplicationContext(), SecondActivity.class);
-                secondActivity.putExtra("Title", "Iron man");
-                startActivity(secondActivity);
-            }
-        });
+
     }
 
 }
