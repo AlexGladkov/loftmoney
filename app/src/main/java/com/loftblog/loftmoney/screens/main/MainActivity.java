@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.fabMain).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                applyDiffUtils();
-//                Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
-//                startActivityForResult(intent, NEW_RECORD);
+//                applyDiffUtils();
+                Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
+                startActivityForResult(intent, NEW_RECORD);
             }
         });
     }
