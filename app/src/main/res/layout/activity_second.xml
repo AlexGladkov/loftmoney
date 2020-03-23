@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SecondActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/textSecondName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/hello_title" />
+        android:capitalize="sentences"
+        android:hint="@string/hint_add_item_name"
+        android:layout_margin="16dp" />
+    
+    <EditText
+        android:id="@+id/textSecondValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_add_item_value"
+        android:inputType="number"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnSecondAdd"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="@string/action_add"
+        android:textColor="@color/light_button_primary_text_color"
+        android:background="@color/light_button_background_color" />
+    
+</LinearLayout>
