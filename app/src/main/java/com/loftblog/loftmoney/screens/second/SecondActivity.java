@@ -1,4 +1,4 @@
-package com.loftblog.loftmoney;
+package com.loftblog.loftmoney.screens.second;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.loftblog.loftmoney.R;
 import com.loftblog.loftmoney.screens.main.MainActivity;
 import com.loftblog.loftmoney.screens.main.adapter.ChargeModel;
 

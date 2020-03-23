@@ -15,6 +15,14 @@ public class ChargesAdapter extends RecyclerView.Adapter<ChargesAdapter.ChargesV
 
     private List<ChargeModel> mDataList = new ArrayList<>();
 
+    public List<ChargeModel> getData() {
+        return mDataList;
+    }
+
+    public void setData(List<ChargeModel> newList) {
+        this.mDataList = newList;
+    }
+
     public void setNewData(List<ChargeModel> chargeModels) {
         mDataList.clear();
         mDataList.addAll(chargeModels);
