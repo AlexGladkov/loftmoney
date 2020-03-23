@@ -35,12 +35,20 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false));
 
+        List<ChargeModel> testList = new ArrayList<>();
+        testList.add(new ChargeModel("500 P", "House"));
+        testList.add(new ChargeModel("200 P", "Children"));
+        testList.add(new ChargeModel("300 P", "Cat"));
+        testList.add(new ChargeModel("150 P", "Bills"));
+
+        chargesAdapter.setNewData(testList);
+
         findViewById(R.id.fabMain).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                applyDiffUtils();
-                Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
-                startActivityForResult(intent, NEW_RECORD);
+                applyDiffUtils();
+//                Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
+//                startActivityForResult(intent, NEW_RECORD);
             }
         });
     }
@@ -57,14 +65,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void applyDiffUtils() {
         List<ChargeModel> testList = new ArrayList<>();
-        testList.add(new ChargeModel("500 P", "House"));
-        testList.add(new ChargeModel("200 P", "Children"));
-        testList.add(new ChargeModel("300 P", "Cat"));
-        testList.add(new ChargeModel("150 P", "Bills"));
+        testList.add(new ChargeModel("300 P", "House"));
+        testList.add(new ChargeModel("250 P", "Bills"));
+        testList.add(new ChargeModel("500 P", "Cat"));
+        testList.add(new ChargeModel("250 P", "Children"));
 
-
-        ChargeDiffUtils productDiffUtilCallback = new ChargeDiffUtils(chargesAdapter.getData(), testList);
-        DiffUtil.DiffResult productDiffResult = DiffUtil.calculateDiff(productDiffUtilCallback);
+        ChargeDiffUtils chargeDiffUtils = new ChargeDiffUtils(chargesAdapter.getData(), testList);
+        DiffUtil.DiffResult productDiffResult = DiffUtil.calculateDiff(chargeDiffUtils);
 
         chargesAdapter.setData(testList);
         productDiffResult.dispatchUpdatesTo(chargesAdapter);
