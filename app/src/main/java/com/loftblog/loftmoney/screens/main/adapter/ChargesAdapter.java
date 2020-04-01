@@ -13,9 +13,11 @@ import com.loftblog.loftmoney.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChargesAdapter extends RecyclerView.Adapter<ChargesAdapter.ChargesViewHolder> {
+public class ChargesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<ChargeModel> mDataList = new ArrayList<>();
+    private final int VIEW_TYPE_CHARGE = 0;
+    private final int VIEW_TYPE_RATE = 1;
 
     public void setNewData(List<ChargeModel> newData) {
         mDataList.clear();
@@ -32,19 +34,43 @@ public class ChargesAdapter extends RecyclerView.Adapter<ChargesAdapter.ChargesV
 
     @NonNull
     @Override
-    public ChargesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        if (viewType == VIEW_TYPE_RATE) {
+            return new RateViewHolder(layoutInflater.inflate(R.layout.cell_rate, parent, false));
+        }
+
         return new ChargesViewHolder(layoutInflater.inflate(R.layout.cell_charge, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChargesViewHolder holder, int position) {
-        holder.bind(mDataList.get(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof RateViewHolder) {
+            ((RateViewHolder) holder).bind("We love you!");
+        } else {
+            ((ChargesViewHolder) holder).bind(mDataList.get(position));
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return mDataList.get(position).getId() == 1 ? VIEW_TYPE_CHARGE : VIEW_TYPE_RATE;
     }
 
     @Override
     public int getItemCount() {
         return mDataList.size();
+    }
+
+    static class RateViewHolder extends RecyclerView.ViewHolder {
+
+        public RateViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+
+        void bind(String message) {
+
+        }
     }
 
     static class ChargesViewHolder extends RecyclerView.ViewHolder {
