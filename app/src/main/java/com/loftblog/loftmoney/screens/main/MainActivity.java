@@ -1,29 +1,25 @@
 package com.loftblog.loftmoney.screens.main;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.loftblog.loftmoney.LoftApp;
 import com.loftblog.loftmoney.R;
 import com.loftblog.loftmoney.screens.main.adapter.ChargeModel;
 import com.loftblog.loftmoney.screens.main.adapter.ChargesAdapter;
 import com.loftblog.loftmoney.screens.second.SecondActivity;
-import com.loftblog.loftmoney.screens.web.WebFactory;
 import com.loftblog.loftmoney.screens.web.models.GetItemsResponseModel;
 import com.loftblog.loftmoney.screens.web.models.ItemRemote;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -75,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Internal logic
     private void loadItems() {
-        Disposable response = WebFactory.getInstance().getItemsRequest().request("expense")
+        Disposable response = ((LoftApp) getApplication()).getItemsRequest().request("expense")
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GetItemsResponseModel>() {

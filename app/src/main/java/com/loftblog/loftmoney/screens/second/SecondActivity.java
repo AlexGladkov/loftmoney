@@ -2,19 +2,15 @@ package com.loftblog.loftmoney.screens.second;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loftblog.loftmoney.LoftApp;
 import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.screens.main.adapter.ChargeModel;
-import com.loftblog.loftmoney.screens.web.WebFactory;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -51,7 +47,7 @@ public class SecondActivity extends AppCompatActivity {
 
     // Internal logic
     private void sendNewExpense(Integer price, String name) {
-        Disposable disposable = WebFactory.getInstance().postItemRequest().request(price, name, "expense")
+        Disposable disposable = ((LoftApp) getApplication()).postItemRequest().request(price, name, "expense")
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action() {
