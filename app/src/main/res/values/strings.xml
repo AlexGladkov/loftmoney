@@ -14,4 +14,5 @@
     <string name="action_add">Add Charge</string>
     <string name="hint_add_charge_name">Charge name...</string>
     <string name="hint_add_charge_value">Charge value...</string>
+    <string name="message_success">Successfully added</string>
 </resources>

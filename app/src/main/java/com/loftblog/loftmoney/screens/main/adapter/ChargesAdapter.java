@@ -36,10 +36,6 @@ public class ChargesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        if (viewType == VIEW_TYPE_RATE) {
-            return new RateViewHolder(layoutInflater.inflate(R.layout.cell_rate, parent, false));
-        }
-
         return new ChargesViewHolder(layoutInflater.inflate(R.layout.cell_charge, parent, false));
     }
 
@@ -50,11 +46,6 @@ public class ChargesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else {
             ((ChargesViewHolder) holder).bind(mDataList.get(position));
         }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return mDataList.get(position).getId() == 1 ? VIEW_TYPE_CHARGE : VIEW_TYPE_RATE;
     }
 
     @Override
