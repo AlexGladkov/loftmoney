@@ -1,4 +1,6 @@
-package com.loftblog.loftmoney.internet;
+package com.loftblog.loftmoney.internet.models;
+
+import com.loftblog.loftmoney.internet.models.ItemRemote;
 
 import java.util.List;
 

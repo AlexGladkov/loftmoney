@@ -9,5 +9,6 @@ import retrofit2.http.POST;
 public interface AddItemService {
     @POST("./items/add")
     @FormUrlEncoded
-    public Completable request(@Field("type") String type, @Field("name") String name, @Field("price") Integer price);
+    public Completable request(@Field("type") String type, @Field("name") String name,
+                               @Field("price") Integer price, @Field("auth-token") String authToken);
 }

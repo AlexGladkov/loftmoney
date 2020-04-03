@@ -1,33 +1,30 @@
 package com.loftblog.loftmoney.screens.main;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
 import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.internet.GetItemsResponse;
-import com.loftblog.loftmoney.internet.ItemRemote;
+import com.loftblog.loftmoney.internet.models.AuthResponse;
+import com.loftblog.loftmoney.internet.models.GetItemsResponse;
+import com.loftblog.loftmoney.internet.models.ItemRemote;
 import com.loftblog.loftmoney.internet.WebFactory;
 import com.loftblog.loftmoney.screens.second.SecondActivity;
 import com.loftblog.loftmoney.screens.main.adapter.ChargeModel;
 import com.loftblog.loftmoney.screens.main.adapter.ChargesAdapter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -60,31 +57,24 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         loadItems();
     }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == NEW_RECORD && resultCode == RESULT_OK && data != null) {
-//            ChargeModel chargeModel = (ChargeModel) data.getSerializableExtra(ChargeModel.KEY_NAME);
-//            chargesAdapter.addNewRecord(chargeModel);
-//        }
-//    }
 
     private void loadItems() {
-        WebFactory.getInstance().getGetItemsService().request("expense")
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
+
+        WebFactory.getInstance().getGetItemsService().request("expense", authToken)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<GetItemsResponse>() {
+                .subscribe(new SingleObserver<List<ItemRemote>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         // Stub
                     }
 
                     @Override
-                    public void onSuccess(GetItemsResponse getItemsResponse) {
-                        List<ChargeModel> chargeModels = new ArrayList<>(getItemsResponse.getData().size());
-                        for (ItemRemote item: getItemsResponse.getData()) {
+                    public void onSuccess(List<ItemRemote> itemRemotes) {
+                        List<ChargeModel> chargeModels = new ArrayList<>(itemRemotes.size());
+                        for (ItemRemote item: itemRemotes) {
                             ChargeModel chargeModel = new ChargeModel(item);
                             chargeModels.add(chargeModel);
                         }

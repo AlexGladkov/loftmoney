@@ -1,4 +1,4 @@
-package com.loftblog.loftmoney.internet;
+package com.loftblog.loftmoney.internet.models;
 
 public class ItemRemote {
 

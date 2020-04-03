@@ -1,9 +1,6 @@
 package com.loftblog.loftmoney.screens.main.adapter;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.loftblog.loftmoney.internet.ItemRemote;
+import com.loftblog.loftmoney.internet.models.ItemRemote;
 
 import java.io.Serializable;
 

@@ -6,7 +6,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in_short">Войти</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
@@ -15,4 +15,5 @@
     <string name="hint_add_item_value">Charge value</string>
     <string name="hint_add_item_name">Charge name</string>
     <string name="message_success">Successfully added</string>
+    <string name="blue_text_color">#FFFFFF</string>
 </resources>
