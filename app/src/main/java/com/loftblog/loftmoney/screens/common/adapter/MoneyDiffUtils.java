@@ -1,15 +1,15 @@
-package com.loftblog.loftmoney.screens.main.adapter;
+package com.loftblog.loftmoney.screens.common.adapter;
 
 import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.List;
 
-public class ChargeDiffUtils extends DiffUtil.Callback {
+public class MoneyDiffUtils extends DiffUtil.Callback {
 
-    private final List<ChargeModel> oldList;
-    private final List<ChargeModel> newList;
+    private final List<MoneyModel> oldList;
+    private final List<MoneyModel> newList;
 
-    public ChargeDiffUtils(List<ChargeModel> oldList, List<ChargeModel> newList) {
+    public MoneyDiffUtils(List<MoneyModel> oldList, List<MoneyModel> newList) {
         this.oldList = oldList;
         this.newList = newList;
     }
@@ -26,12 +26,12 @@ public class ChargeDiffUtils extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldList.get(oldItemPosition).getTitle().equals(newList.get(newItemPosition).getTitle());
+        return oldList.get(oldItemPosition).getName().equals(newList.get(newItemPosition).getName());
     }
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        boolean isTitlesSame = oldList.get(oldItemPosition).getTitle().equals(newList.get(newItemPosition).getTitle());
+        boolean isTitlesSame = oldList.get(oldItemPosition).getName().equals(newList.get(newItemPosition).getName());
         boolean isValuesSame = oldList.get(oldItemPosition).getValue().equals(newList.get(newItemPosition).getValue());
         return isTitlesSame && isValuesSame;
     }

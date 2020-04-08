@@ -1,4 +1,4 @@
-package com.loftblog.loftmoney.screens.main.adapter;
+package com.loftblog.loftmoney.screens.common.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +13,17 @@ import com.loftblog.loftmoney.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChargesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<ChargeModel> mDataList = new ArrayList<>();
-    private final int VIEW_TYPE_CHARGE = 0;
-    private final int VIEW_TYPE_RATE = 1;
+    private List<MoneyModel> mDataList = new ArrayList<>();
 
-    public void setNewData(List<ChargeModel> newData) {
+    public void setNewData(List<MoneyModel> newData) {
         mDataList.clear();
         mDataList.addAll(newData);
         notifyDataSetChanged();
     }
 
-    public void addDataToTop(ChargeModel model) {
+    public void addDataToTop(MoneyModel model) {
         mDataList.add(0, model);
         mDataList.get(mDataList.size() - 1).setVisibility(View.GONE);
         notifyItemInserted(0);
@@ -72,10 +70,10 @@ public class ChargesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
         }
 
-        void bind(ChargeModel chargeModel) {
-            txtName.setText(chargeModel.getName());
-            txtValue.setText(chargeModel.getValue());
-            divider.setVisibility(chargeModel.getVisibility());
+        void bind(MoneyModel moneyModel) {
+            txtName.setText(moneyModel.getName());
+            txtValue.setText(moneyModel.getValue());
+            divider.setVisibility(moneyModel.getVisibility());
         }
     }
 }

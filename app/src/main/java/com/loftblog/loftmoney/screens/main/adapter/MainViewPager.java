@@ -1,4 +1,41 @@
 package com.loftblog.loftmoney.screens.main.adapter;
 
-public class MainViewPager {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+
+import java.util.List;
+
+public class MainViewPager extends FragmentPagerAdapter {
+
+    private List<Fragment> mFragments;
+    private List<String> mTitles;
+
+    public MainViewPager(FragmentManager fragmentManager, List<Fragment> fragments,
+                         List<String> titles) {
+        super(fragmentManager);
+
+        if (titles.size() != fragments.size()) { throw new RuntimeException("Sizes different"); }
+        this.mFragments = fragments;
+        this.mTitles = titles;
+    }
+
+    @NonNull
+    @Override
+    public Fragment getItem(int position) {
+        return mFragments.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return mFragments.size();
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTitles.get(position);
+    }
 }
