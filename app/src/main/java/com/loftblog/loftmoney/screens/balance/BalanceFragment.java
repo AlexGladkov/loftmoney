@@ -1,0 +1,36 @@
+package com.loftblog.loftmoney.screens.balance;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.loftblog.loftmoney.R;
+import com.loftblog.loftmoney.custom.DiagramView;
+import com.loftblog.loftmoney.screens.main.adapter.TitleProvider;
+
+public class BalanceFragment extends Fragment implements TitleProvider {
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_balance, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        DiagramView diagramView = view.findViewById(R.id.dvBalance);
+        diagramView.update(5400, 17000);
+    }
+
+    // TitleProvider implementation
+    @Override
+    public String getTitle() {
+        return getString(R.string.title_expenses);
+    }
+}

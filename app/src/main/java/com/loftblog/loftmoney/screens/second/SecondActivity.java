@@ -3,36 +3,26 @@ package com.loftblog.loftmoney.screens.second;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.AndroidException;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.loftblog.loftmoney.LoftApp;
 import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.internet.WebFactory;
-import com.loftblog.loftmoney.internet.models.AuthResponse;
-import com.loftblog.loftmoney.screens.main.MainActivity;
-import com.loftblog.loftmoney.screens.main.adapter.ChargeModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.loftblog.loftmoney.screens.web.models.AuthResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class SecondActivity extends AppCompatActivity {
 
-    private List<Disposable> disposables = new ArrayList<>();
     private Button btnAdd;
     private EditText textName;
     private EditText textValue;
@@ -44,12 +34,15 @@ public class SecondActivity extends AppCompatActivity {
 
         textName = findViewById(R.id.textSecondName);
         textValue = findViewById(R.id.textSecondValue);
-        btnAdd = findViewById(R.id.btnSecondAdd);
+        btnAdd = findViewById(R.id.btnSecondEnter);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(textName.getText()) && TextUtils.isEmpty(textValue.getText())) {
+                String name = textName.getText().toString();
+                String value = textValue.getText().toString();
+
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(value)) {
                     return;
                 }
 
@@ -59,25 +52,21 @@ public class SecondActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        for (Disposable disposable : disposables) {
-            disposable.dispose();
-        }
-
-        super.onDestroy();
+    // Internal logic
+    private void setLoading(Boolean state) {
+        textValue.setEnabled(!state);
+        textName.setEnabled(!state);
+        btnAdd.setVisibility(state ? View.GONE : View.VISIBLE);
     }
 
     private void sendNewExpense(Integer price, String name) {
-        btnAdd.setVisibility(View.INVISIBLE);
-        textName.setEnabled(false);
-        textValue.setEnabled(false);
-
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
 
-        Disposable request = WebFactory.getInstance().addItemService().request("expense", name,
-                price, authToken)
+        setLoading(true);
+        Disposable disposable = ((LoftApp) getApplication())
+                .postItemRequest()
+                .request(price, name, "expense", authToken)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action() {
@@ -89,13 +78,9 @@ public class SecondActivity extends AppCompatActivity {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        setLoading(false);
                         Toast.makeText(getApplicationContext(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        btnAdd.setVisibility(View.VISIBLE);
-                        textName.setEnabled(false);
-                        textValue.setEnabled(false);
                     }
                 });
-
-        disposables.add(request);
     }
 }

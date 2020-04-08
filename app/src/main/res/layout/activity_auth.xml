@@ -7,37 +7,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center" >
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="93dp"
             android:layout_height="93dp"
-            android:src="@drawable/ic_diamond"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_diamond" />
 
         <TextView
+            style="@style/ZeplinTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textSize="36sp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="18dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/blue_background_text_color" />
+            android:text="@string/app_name" />
 
         <Button
-            android:id="@+id/btnStartSignIn"
+            android:id="@+id/btnAuthSignIn"
+            style="@style/LoftButton"
             android:layout_width="130dp"
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-medium"
-            android:background="@drawable/sign_in_button"
-            android:text="@string/action_sign_in_short"
-            android:textAllCaps="true"
-            android:textColor="@color/colorAccent"/>
-
+            android:text="@string/action_sign_in_short" />
     </LinearLayout>
 
 </FrameLayout>

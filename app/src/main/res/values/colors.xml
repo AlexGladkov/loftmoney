@@ -5,10 +5,12 @@
     <color name="colorAccent">#4a90e2</color>
     <color name="playerBackground">#FF0000</color>
     <color name="accentProfile">#FF0000</color>
-    <color name="divider_color">#1A000000</color>
     <color name="light_primary_text_color">#666664</color>
     <color name="light_accent_text_color">#4a90e2</color>
-    <color name="light_button_background_color">#4a90e2</color>
-    <color name="light_button_primary_text_color">#FFFFFF</color>
-    <color name="blue_text_color">#FFFFFF</color>
+    <color name="button_background_color">#4a90e2</color>
+    <color name="button_text_color">#FFFFFF</color>
+    <color name="divider_color">#30000000</color>
+    <color name="blue_background_text_color">#FFFFFF</color>
+    <color name="indicator_color">#ffc107</color>
+    <color name="apple_green">#7ed321</color>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Loftmoney</string>
+    <string name="app_name">LoftMoney</string>
     <string name="hello_title">This is first text in my life</string>
     <string name="nextTitle">Go to next activity</string>
     <string name="title_activity_login">Sign in</string>
@@ -11,9 +11,13 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="action_add">Add Item</string>
-    <string name="hint_add_item_value">Charge value</string>
-    <string name="hint_add_item_name">Charge name</string>
+    <string name="action_add">Add Charge</string>
+    <string name="hint_add_charge_name">Charge name...</string>
+    <string name="hint_add_charge_value">Charge value...</string>
     <string name="message_success">Successfully added</string>
-    <string name="blue_text_color">#FFFFFF</string>
+    <string name="expense_not_found">Вы еще не записали свои расходы. Нажмите на кнопку в углу, чтобы создать расход</string>
+    <string name="title_balance">Баланс</string>
+    <string name="title_incomes">Доходы</string>
+    <string name="title_expenses">Расходы</string>
+    <string name="balance_available">Доступные финансы</string>
 </resources>

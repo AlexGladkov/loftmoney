@@ -11,27 +11,27 @@
         android:id="@+id/textSecondName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/hint_add_charge_name"
         android:capitalize="sentences"
-        android:hint="@string/hint_add_item_name"
         android:layout_margin="16dp" />
-    
+
     <EditText
         android:id="@+id/textSecondValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_add_item_value"
+        android:hint="@string/hint_add_charge_value"
         android:inputType="number"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
     <Button
-        android:id="@+id/btnSecondAdd"
-        android:layout_width="250dp"
+        android:id="@+id/btnSecondEnter"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
         android:text="@string/action_add"
-        android:textColor="@color/light_button_primary_text_color"
-        android:background="@color/light_button_background_color" />
-    
+        android:textColor="@color/button_text_color"
+        android:background="@color/button_background_color" />
+
 </LinearLayout>

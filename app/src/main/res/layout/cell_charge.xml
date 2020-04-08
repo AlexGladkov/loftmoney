@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
+    android:layout_height="wrap_content">
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="29dp"
-        android:paddingBottom="29dp"
         android:paddingStart="24dp"
-        android:paddingEnd="24dp" >
+        android:paddingEnd="24dp"
+        android:paddingTop="29dp"
+        android:paddingBottom="29dp" >
 
         <TextView
-            android:id="@+id/txtChargeTitle"
+            android:id="@+id/txtChargeName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:textColor="@color/light_primary_text_color"
             android:textSize="@dimen/primary_text_size" />
@@ -27,19 +26,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"
-            android:textStyle="bold"
+            android:layout_marginStart="96dp"
             android:fontFamily="sans-serif"
-            android:textColor="@color/light_accent_text_color"
-            android:textSize="@dimen/primary_text_size" />
+            android:textStyle="bold"
+            android:textSize="@dimen/primary_text_size"
+            android:textColor="@color/light_accent_text_color" />
 
     </LinearLayout>
 
     <View
+        android:id="@+id/viewChargeDivider"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"
-        android:background="@color/divider_color"
-        android:layout_gravity="bottom" />
+        android:layout_height="@dimen/divider_size"
+        android:layout_gravity="bottom"
+        android:background="@color/divider_color"/>
 
 </LinearLayout>
