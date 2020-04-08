@@ -4,16 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.loftblog.loftmoney.LoftApp;
 import com.loftblog.loftmoney.R;
 import com.loftblog.loftmoney.screens.main.adapter.ChargeModel;
 import com.loftblog.loftmoney.screens.main.adapter.ChargesAdapter;
 import com.loftblog.loftmoney.screens.second.SecondActivity;
+import com.loftblog.loftmoney.screens.web.GetItemsRequest;
+import com.loftblog.loftmoney.screens.web.models.AuthResponse;
 import com.loftblog.loftmoney.screens.web.models.GetItemsResponseModel;
 import com.loftblog.loftmoney.screens.web.models.ItemRemote;
 
@@ -25,10 +31,13 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainViewState {
 
     private ChargesAdapter chargesAdapter = new ChargesAdapter();
-    private List<Disposable> disposables = new ArrayList();
+    private MainPresenter mainPresenter = new MainPresenter();
+    private RecyclerView recyclerView;
+    private CircularProgressView cpvLoader;
+    private View notFound;
     static int ADD_ITEM_REQUEST = 1;
 
     @Override
@@ -36,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerMain);
+        cpvLoader = findViewById(R.id.cpvMain);
+        notFound = findViewById(R.id.llMainNoItems);
+        recyclerView = findViewById(R.id.recyclerMain);
         recyclerView.setAdapter(chargesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,
                 false));
@@ -48,19 +59,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(secondIntent, ADD_ITEM_REQUEST);
             }
         });
+
+        mainPresenter.setMainViewState(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadItems();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
+
+        GetItemsRequest getItemsRequest = ((LoftApp) getApplication()).getItemsRequest();
+
+        mainPresenter.loadItems(authToken, getItemsRequest);
     }
 
     @Override
     protected void onStop() {
-        for (Disposable disposable: disposables) {
-            disposable.dispose();
-        }
+        mainPresenter.onDestroy();
         super.onStop();
     }
 
@@ -69,28 +86,36 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    // Internal logic
-    private void loadItems() {
-        Disposable response = ((LoftApp) getApplication()).getItemsRequest().request("expense")
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<GetItemsResponseModel>() {
-                    @Override
-                    public void accept(GetItemsResponseModel getItemsResponseModel) throws Exception {
-                        List<ChargeModel> chargeModels = new ArrayList<>();
-                        for (ItemRemote itemRemote: getItemsResponseModel.getData()) {
-                            chargeModels.add(new ChargeModel(itemRemote));
-                        }
+    // MainViewState implementation
+    @Override
+    public void startLoading() {
+        cpvLoader.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        notFound.setVisibility(View.GONE);
+    }
 
-                        chargesAdapter.setNewData(chargeModels);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Toast.makeText(getApplicationContext(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+    @Override
+    public void setData(List<ChargeModel> items) {
+        cpvLoader.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        notFound.setVisibility(View.GONE);
 
-        disposables.add(response);
+        chargesAdapter.setNewData(items);
+    }
+
+    @Override
+    public void setError(String error) {
+        cpvLoader.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        notFound.setVisibility(View.VISIBLE);
+
+        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setNoItems() {
+        cpvLoader.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        notFound.setVisibility(View.VISIBLE);
     }
 }

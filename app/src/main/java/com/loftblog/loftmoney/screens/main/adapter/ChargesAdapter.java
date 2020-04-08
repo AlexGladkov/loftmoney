@@ -22,7 +22,6 @@ public class ChargesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void setNewData(List<ChargeModel> newData) {
         mDataList.clear();
         mDataList.addAll(newData);
-        mDataList.get(mDataList.size() - 1).setVisibility(View.GONE);
         notifyDataSetChanged();
     }
 

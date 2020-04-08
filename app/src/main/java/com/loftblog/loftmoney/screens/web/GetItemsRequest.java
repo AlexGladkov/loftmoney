@@ -1,6 +1,9 @@
 package com.loftblog.loftmoney.screens.web;
 
 import com.loftblog.loftmoney.screens.web.models.GetItemsResponseModel;
+import com.loftblog.loftmoney.screens.web.models.ItemRemote;
+
+import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -14,5 +17,6 @@ import retrofit2.http.Query;
 
 public interface GetItemsRequest {
     @GET("./items")
-    Single<GetItemsResponseModel> request(@Query("type") String string);
+    Single<List<ItemRemote>> request(@Query("type") String string,
+                                     @Query("auth-token") String authToken);
 }

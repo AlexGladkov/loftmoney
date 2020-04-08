@@ -2,6 +2,7 @@ package com.loftblog.loftmoney;
 
 import android.app.Application;
 
+import com.loftblog.loftmoney.screens.web.AuthRequest;
 import com.loftblog.loftmoney.screens.web.GetItemsRequest;
 import com.loftblog.loftmoney.screens.web.PostItemRequest;
 
@@ -26,9 +27,10 @@ public class LoftApp extends Application {
                 .addInterceptor(interceptor)
                 .build();
 
+        String baseUrl = "https://loftschool.com/android-api/basic/v1/";
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://verdant-violet.glitch.me/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -37,7 +39,7 @@ public class LoftApp extends Application {
     public GetItemsRequest getItemsRequest() {
         return retrofit.create(GetItemsRequest.class);
     }
-
+    public AuthRequest getAuthRequest() { return retrofit.create(AuthRequest.class); }
     public PostItemRequest postItemRequest() {
         return retrofit.create(PostItemRequest.class);
     }
