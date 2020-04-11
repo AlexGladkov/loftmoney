@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.github.rahatarmanahmed.cpv.CircularProgressView
+        android:id="@+id/cpvBalance"
+        android:layout_width="@dimen/loader_size"
+        android:layout_height="@dimen/loader_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtBalanceAvailableTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="37dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/balance_available_money"
+        android:textColor="@color/medium_grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtBalanceAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="67000₽"
+        android:textColor="@color/pale_orange"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="@+id/txtBalanceAvailableTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txtBalanceAvailableTitle" />
+
+    <View
+        android:id="@+id/balanceDivider1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="37dp"
+        android:background="@color/white_six"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtBalanceAvailable" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtBalanceExpenseTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/title_expenses"
+        android:textColor="@color/medium_grey"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/txtBalanceAvailableTitle"
+        app:layout_constraintTop_toBottomOf="@+id/balanceDivider1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtBalanceExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="5400₽"
+        android:textColor="@color/dark_sky_blue"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/txtBalanceAvailableTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txtBalanceExpenseTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtBalanceIncomesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/title_incomes"
+        android:textColor="@color/medium_grey"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/balanceDivider2"
+        app:layout_constraintTop_toTopOf="@+id/txtBalanceExpenseTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtBalanceIncomes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="74000₽"
+        android:textColor="@color/apple_green"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/txtBalanceIncomesTitle"
+        app:layout_constraintTop_toTopOf="@+id/txtBalanceExpense" />
+
+    <View
+        android:id="@+id/balanceDivider2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/white_six"
+        app:layout_constraintBottom_toTopOf="@+id/balanceDivider3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtBalanceExpense"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balanceDivider1" />
+
+    <View
+        android:id="@+id/balanceDivider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="26dp"
+        android:background="@color/white_six"
+        app:layout_constraintTop_toBottomOf="@+id/txtBalanceExpense" />
+
+    <com.loftblog.loftmoney.common.diagram.DiagramView
+        android:id="@+id/dvBalance"
+        android:layout_width="176dp"
+        android:layout_height="176dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balanceDivider3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

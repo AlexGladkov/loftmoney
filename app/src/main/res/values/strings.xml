@@ -16,4 +16,9 @@
     <string name="hint_add_charge_value">Charge value...</string>
     <string name="message_success">Successfully added</string>
     <string name="expense_not_found">Вы еще не записали свои расходы. Нажмите на кнопку в углу, чтобы создать расход</string>
+    <string name="title_expenses">Расходы</string>
+    <string name="title_incomes">Доходы</string>
+    <string name="title_balance">Баланс</string>
+    <string name="title_main">Учет бюджета</string>
+    <string name="balance_available_money">Доступные финансы</string>
 </resources>

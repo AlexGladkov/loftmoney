@@ -1,60 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".screens.main.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerMain"
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-    <com.github.rahatarmanahmed.cpv.CircularProgressView
-        android:id="@+id/cpvMain"
-        android:layout_width="@dimen/loader_size"
-        android:layout_height="@dimen/loader_size"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        app:cpv_animAutostart="true"
-        app:cpv_color="@color/colorPrimary"
-        app:cpv_indeterminate="true" />
-
-    <LinearLayout
-        android:id="@+id/llMainNoItems"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="@color/colorPrimary"
-            android:src="@drawable/ic_diamond"
-            android:layout_gravity="center_horizontal" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:contentInsetStart="0dp"
+        android:paddingTop="5dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            style="@style/ZeplinRegular"
-            android:text="@string/expense_not_found"/>
+            android:text="@string/title_main"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/blue_background_text_color" />
 
-    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp" />
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:tabIndicatorColor="@color/marigold"
+            app:tabTextColor="#33ffffff"
+            app:tabSelectedTextColor="@color/blue_background_text_color" />
+
+    </androidx.viewpager.widget.ViewPager>
+
+</LinearLayout>

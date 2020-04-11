@@ -1,15 +1,9 @@
-package com.loftblog.loftmoney.screens.main;
+package com.loftblog.loftmoney.common.money;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Handler;
-import android.widget.Toast;
 
-import com.loftblog.loftmoney.LoftApp;
-import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.screens.main.adapter.ChargeModel;
+import com.loftblog.loftmoney.common.money.adapter.MoneyModel;
 import com.loftblog.loftmoney.screens.web.GetItemsRequest;
-import com.loftblog.loftmoney.screens.web.models.AuthResponse;
 import com.loftblog.loftmoney.screens.web.models.ItemRemote;
 
 import java.util.ArrayList;
@@ -20,41 +14,41 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainPresenter {
+public class MoneyPresenter {
 
     private List<Disposable> disposables = new ArrayList();
-    private MainViewState mainViewState = null;
+    private MoneyViewState moneyViewState = null;
 
-    public void setMainViewState(MainViewState mainViewState) {
-        this.mainViewState = mainViewState;
+    public void setMoneyViewState(MoneyViewState moneyViewState) {
+        this.moneyViewState = moneyViewState;
     }
 
     // Internal logic
-    void onDestroy() {
+    public void onDestroy() {
         for (Disposable disposable: disposables) {
             disposable.dispose();
         }
     }
 
-    void loadItems(String authToken, GetItemsRequest getItemsRequest) {
-        mainViewState.startLoading();
-        Disposable response =  getItemsRequest.request("expense", authToken)
+    public void loadItems(String authToken, final String type, GetItemsRequest getItemsRequest) {
+        moneyViewState.startLoading();
+        Disposable response =  getItemsRequest.request(type, authToken)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<ItemRemote>>() {
                     @Override
                     public void accept(List<ItemRemote> itemRemotes) throws Exception {
-                        final List<ChargeModel> chargeModels = new ArrayList<>();
+                        final List<MoneyModel> moneyModels = new ArrayList<>();
                         for (ItemRemote itemRemote: itemRemotes) {
-                            chargeModels.add(new ChargeModel(itemRemote));
+                            moneyModels.add(new MoneyModel(itemRemote, type));
                         }
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                if (chargeModels.isEmpty()) {
-                                    mainViewState.setNoItems();
+                                if (moneyModels.isEmpty()) {
+                                    moneyViewState.setNoItems();
                                 }  else {
-                                    mainViewState.setData(chargeModels);
+                                    moneyViewState.setData(moneyModels);
                                 }
                             }
                         }, 4000);
@@ -62,7 +56,7 @@ public class MainPresenter {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mainViewState.setError(throwable.getLocalizedMessage());
+                        moneyViewState.setError(throwable.getLocalizedMessage());
                     }
                 });
 

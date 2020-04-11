@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.loftblog.loftmoney.LoftApp;
 import com.loftblog.loftmoney.R;
+import com.loftblog.loftmoney.screens.expenses.MoneyFragment;
 import com.loftblog.loftmoney.screens.web.models.AuthResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -26,11 +27,16 @@ public class SecondActivity extends AppCompatActivity {
     private Button btnAdd;
     private EditText textName;
     private EditText textValue;
+    private String type = "expense";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            type = getIntent().getExtras().getString(MoneyFragment.TYPE_KEY);
+        }
 
         textName = findViewById(R.id.textSecondName);
         textValue = findViewById(R.id.textSecondValue);
@@ -66,7 +72,7 @@ public class SecondActivity extends AppCompatActivity {
         setLoading(true);
         Disposable disposable = ((LoftApp) getApplication())
                 .postItemRequest()
-                .request(price, name, "expense", authToken)
+                .request(price, name, type, authToken)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action() {
